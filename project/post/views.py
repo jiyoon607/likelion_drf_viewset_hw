@@ -22,7 +22,7 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action == "create":
             return [IsAuthenticated()]
-        if self.action in ["update", "destroy", "partial_update"]:
+        if self.action in ["update", "destroy", "partial_update", "likes"]:
             return [IsOwnerOrReadOnly()]
         return []
 
@@ -54,7 +54,7 @@ class PostViewSet(viewsets.ModelViewSet):
         top_posts_serializer = PostListSerializer(top_posts, many=True)
         return Response(top_posts_serializer.data)
     
-    @action(methods=['GET'], detail=True)
+    @action(methods=['POST'], detail=True)
     def likes(self, request, pk=None):
         like_post = self.get_object()
         if request.user in like_post.like.all():

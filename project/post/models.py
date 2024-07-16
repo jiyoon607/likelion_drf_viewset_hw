@@ -18,7 +18,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     tag = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to=image_upload_path, blank=True, null=True)
-    like = models.ManyToManyField(User, related_name="likes", blank=True, null=True)
+    like = models.ManyToManyField(User, related_name="likes", blank=True)
     likes_num = models.PositiveSmallIntegerField(default=0)
 
 class Comment(models.Model):
